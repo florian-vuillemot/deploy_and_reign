@@ -87,6 +87,7 @@ __Note:__ Lors de la configuration de votre "Little client" n'oubliez pas de cr�
 That's done !
 
 Afin de simplifier votre d'administrateur vous trouvez des fichiers de configuration pour votre Salt-master. Ils doivent être déposé dans le dossier "/srv/salt/". Vous pouvez les éxécuters en faisant : `salt '*' state.apply nom_du_fichier`. 
+Vous trouverez aussi des scripts de mise bash pour vous aidez dans vos tâches de maintenance.
 
 __Note:__ Le nom du fichier et sans son extension 'sls'.
 
