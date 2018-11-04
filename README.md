@@ -7,6 +7,7 @@ Demandes du projet :
 1. Création d'un ISO avec 
    * Un Windows 10
      * Office 365
+     * Rendre inutilisable l'utilisation de clés USB
    * Un Fedora
      * Emacs
      * Fluxbox
@@ -40,6 +41,9 @@ Sur Fedora allez ouvrez un terminal et faite:
 - `sudo dnf install emacs`
 - `sudo dnf install fluxbox`
 
+Désactivation des clés USB sur Windows. 
+Vous avez plusieurs méthode pour effectuer cette tâche. Personnelement j'ai appliqué une restriction via les Groupe Policy. Vous trouverez la procédure compléte sur https://www.isumsoft.com/windows-10/how-to-disable-use-of-usb-storage-devices-in-windows-10.html.
+
 Maintenant passons à l'installation des agents pour l'administration distante des machines.
 Ici nous avons choisi d'utiliser Salstack. C'est un équivalent de Puppet ou Ansible.
 Pourquoi avoir choisi Salstack ?
@@ -47,5 +51,33 @@ Pourquoi avoir choisi Salstack ?
 - Utilisation extrèmenet simple (en 10 min vous pouvez éxécuter des commandes sur des machines distante)
 - Les extensions sont écrite en Python
 
-Avant de choisir un POC fut effectuer avec Puppet avant de choisir Salstack comme outil.
+Note: Avant de choisir un POC fut effectuer avec Puppet avant de choisir Salstack comme outil.
 
+Brève explication de Salstack
+Salstack se compose de 2 binaires :
+- Minion: Client qui va éxécuter les opérations sur la machine hôte
+- Master: Qui va envoyer les commandes à éxécuters aux minions
+
+Nous allons installer un minion sur le Windows et sur le Linux. Grâce à cela nous pourrons effectuer des opérations distantes sur les deux systèmes d'opération.
+
+Sur Windows, l'installation se fait via le liens suivant https://docs.saltstack.com/en/latest/topics/installation/windows.html. Choisissez de préférence la version 3 de Python. Lors de l'installation l'URL du master sera demandé. Si vous n'en possèdez pas encore ce n'est pas grâve car vous pourrez le modifier ultérieurement grâce au fichier de configuration de votre minion.
+Sur Fedora, il vous suffit de faire un `sudo dnf install salt-minion`. Si cela ne fonctionne pas allez sur la documentation suivante https://docs.saltstack.com/en/latest/topics/installation/fedora.html. Vous devez modifier l'URL de votre master via un fichier de configuration (https://docs.saltstack.com/en/latest/ref/configuration/minion.html).
+
+Une fois qu'un minion est installé et configurer il essait de se connecter à sont master. Il se peut que vous devez re démarrer votre machine pour qu'il se connecte.
+Sur votre master éxécuter la commande `salt '*' test.ping` pour vérifier l'ajout d'un minion. 
+Note: Il se peux que votre minion soit présent, allumé mais que le ping echou. N'hésitez pas à changer la valeur de timeout avec l'option `--timeout=60` ou 60 est le nombre de seconds avant le timeout.
+
+
+Une fois que vos minion sont configuré avec votre master vous êtes près pour créer vos ISO et le partager sur votre parc.
+
+Les étapes à suivre
+1. Lancer Virtualbox
+2. Comme pour Fedora, changer le disque de démarrage pour mettre l'ISO de Clonezilla.
+3. Lancer la machine
+4. Une fois que vous avez booter sur Clonezilla suivez les instructions à l'écran. Dans l'ensemble il vous suffit de faire next.
+Je ne vais pas rentrer dans les détailles concernant la création de la sauvegarde grâce à Clonezilla. Vous trouverez une grande documentation sur le Web. Pour ma part je n'ai pas utilisé de clée USB mais un server ssh pour stocker la sauvegarde.
+
+Maintenant que vous avez votre image vous pouvez relancer une machine virtuelle avec à nouveau Clonezilla comme disque de lancement.
+Une fois votre machine lancé il faut sélectionner "Little server" et suivre les instructions.
+Après cela, créer une dernière machine virtuelle avec comme disque de lancement Clonezilla (comme précédement) mais cette fois sélectionner "Little client" puis entrer l'addresse IP de votre "Little server" créer dans l'étape précédente. Suivez les instructions et sauvegarde sera restoré !
+Note: Lors de la configuration de votre "Little client" n'oubliez pas de créer une machine avec un disque dur supérieur ou égale au disque de votre machine sauvegardé.
