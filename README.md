@@ -78,6 +78,13 @@ Les étapes à suivre
 Je ne vais pas rentrer dans les détailles concernant la création de la sauvegarde grâce à Clonezilla. Vous trouverez une grande documentation sur le Web. Pour ma part je n'ai pas utilisé de clée USB mais un server ssh pour stocker la sauvegarde.
 
 Maintenant que vous avez votre image vous pouvez relancer une machine virtuelle avec à nouveau Clonezilla comme disque de lancement.
-Une fois votre machine lancé il faut sélectionner "Little server" et suivre les instructions.
+Une fois votre machine lancé il faut sélectionner "Little server" et suivre les instructions. 
+Note: dans mon exemple j'ai choisie d'utiliser un serveur en mode multicast.
 Après cela, créer une dernière machine virtuelle avec comme disque de lancement Clonezilla (comme précédement) mais cette fois sélectionner "Little client" puis entrer l'addresse IP de votre "Little server" créer dans l'étape précédente. Suivez les instructions et sauvegarde sera restoré !
 Note: Lors de la configuration de votre "Little client" n'oubliez pas de créer une machine avec un disque dur supérieur ou égale au disque de votre machine sauvegardé.
+
+That's done ! Vous avez déployé une nouvelle machine sur votre parc. Vous pouvez l'administré à distance avec votre agent Salstack.
+
+Afin de simplifier votre d'administrateur vous trouvez des fichiers de configuration pour votre Salt-master. Ils doivent être déposé dans le dossier "/srv/salt/". Vous pouvez les éxécuters en faisant : `salt '*' state.apply nom_du_fichier`. 
+Note: Le nom du fichier et sans son extension 'sls'.
+
