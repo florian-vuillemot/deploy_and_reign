@@ -3,6 +3,9 @@
 ## But :
 Le but de ce projet est de déployer un parc de machines et de les administrers à distance.
 
+## Avertissement
+Se travaille n'a rien de professionnel. Aucun système de sécurité n'est mi en place. De plus il n'y a aucune rigueur et on ne suis pas le "Salstack way". **C'est purement un POC et une introduction scolaire**
+
 ### Demandes du projet :
 1. Création d'un ISO avec 
    * Un Windows 10
