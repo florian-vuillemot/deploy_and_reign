@@ -1,12 +1,12 @@
 # Projet d'introduction à l'administration système {EPITECH}
 
-## But :
+## But
 Le but de ce projet est de déployer un parc de machines et de les administrers à distance.
 
 ## Avertissement
 Se travaille n'a rien de professionnel. Aucun système de sécurité n'est mi en place. De plus il n'y a aucune rigueur et on ne suis pas le "Salstack way". **C'est purement un POC et une introduction scolaire**
 
-### Demandes du projet :
+### Demandes du projet
 1. Création d'un ISO avec 
    * Un Windows 10
      * Office 365
@@ -32,15 +32,15 @@ Se travaille n'a rien de professionnel. Aucun système de sécurité n'est mi en
 3. Lancer la machine virtuel avec l'ISO Windows 10. **Attention** Vous devez partitionner le disque durrant l'installation pour pouvoir installer le Fedora
 4. Une fois l'installation de Windows 10 terminé éteigner la machine
 5. Dans Virtualbox, changer le disque de lancement de votre machine virtuel pour sélectionner l'ISO Fedora (Partie "Figure 6.8. Virtual Machine Added" de la documentation https://docs.oracle.com/cd/E26217_01/E26796/html/qs-create-vm.html)
-6. Lancer la machine et faite l'installation de Fedora sur la partition précèdement créer sans écraser la partion Windows 10. Le Grub s'installe automatiquement
+6. Lancer la machine et faite l'installation de Fedora sur la partition précèdement créer sans écraser la partition Windows 10
 7. Une fois l'installation et la configuration de votre Fedora faite vous pouvez éteindre la machine
 
 ### Etât des lieux
-Vous avez un ISO avec un Fedora et un Windows 10 installé. Vous pouvez accèder au système d'exploitation que vous souhaitez lors du démarrage de votre machine grâce au GRUB installer lors de l'installation de votre Fedora
+Vous avez un ISO avec un Fedora et un Windows 10 installé. Vous pouvez accèder au système d'exploitation que vous souhaitez lors du démarrage de votre machine grâce au GRUB installé lors de l'installation de votre Fedora
 
 ### A prèsent vous devez installer les logiciels business demandés
 Sur Windows il vous suffit d'aller sur le site d'Office 365 (https://support.office.com/fr-fr/article/t%C3%A9l%C3%A9charger-et-installer-ou-r%C3%A9installer-office-365-ou-office-2019-sur-un-pc-ou-mac-4414eaaf-0478-48be-9c42-23adc4716658)
-Sur Fedora ouvrez un terminal et faite:
+Sur Fedora ouvrez un terminal et faite
 - `sudo dnf install emacs`
 - `sudo dnf install fluxbox`
 
@@ -55,18 +55,18 @@ Pourquoi avoir choisi Salstack ?
 - Les extensions sont écrite en Python
 
 #### Brève explication de Salstack
-Salstack se compose de 2 binaires :
+Salstack se compose de 2 parties :
 - __Minion__: Client qui éxécute les opérations sur la machine hôte
 - __Master__: Qui va envoyer les commandes à éxécuters aux minions
 
-### Nous allons installer un minion sur le Windows et sur le Linux. Grâce à cela nous pourrons effectuer des opérations distantes sur les deux systèmes d'opération
+### Nous allons installer un minion sur le Windows et sur le Linux. Grâce à cela nous pourrons effectuer des opérations distantes sur les deux systèmes d'exploitation
 - Sur Windows, l'installation se fait via le liens suivant https://docs.saltstack.com/en/latest/topics/installation/windows.html. Choisissez de préférence la version 3 de Python. Lors de l'installation l'URL du master sera demandé. Si vous n'en possèdez pas encore ce n'est pas grâve car vous pourrez le modifier ultérieurement grâce au fichier de configuration de votre minion
 - Sur Fedora, il vous suffit de faire un `sudo dnf install salt-minion`. Si cela ne fonctionne pas allez sur la documentation suivante https://docs.saltstack.com/en/latest/topics/installation/fedora.html. Vous devez modifier l'URL de votre master via un fichier de configuration (https://docs.saltstack.com/en/latest/ref/configuration/minion.html)
 
-Une fois qu'un minion est installé et configurer il essait de se connecter à sont master. Il se peut que vous deviez re démarrer votre machine pour qu'il se connecte.
+Une fois qu'un minion est installé et configurer il essait de se connecter à sont master. Il se peut que vous deviez re démarrer la machine cliente pour qu'il se connecte.
 Sur votre master, éxécuter la commande `salt '*' test.ping` pour vérifier l'ajout d'un minion. 
 
-__Note:__ Il se peux que votre minion soit présent, allumé mais que le ping echou. N'hésitez pas à changer la valeur du timeout avec l'option `--timeout=60` ou 60 est le nombre de seconds avant le timeout.
+__Note__: Il se peux que votre minion soit présent, allumé mais que le ping echou. N'hésitez pas à changer la valeur du timeout avec l'option `--timeout=60` ou 60 est le nombre de seconds avant le timeout.
 
 
 ## Une fois que vos minion sont configuré avec votre master vous êtes près pour créer vos ISO et le partager sur votre parc
@@ -81,16 +81,16 @@ Je ne vais pas rentrer dans les détailles concernant la création de la sauvega
 Maintenant que vous avez votre image vous pouvez relancer une machine virtuelle avec à nouveau Clonezilla comme disque de lancement.
 Une fois votre machine lancé il faut sélectionner __Little server__ et suivre les instructions. 
 
-__Note:__ dans mon exemple j'ai choisie d'utiliser un serveur en mode multicast.
+__Note__: dans mon exemple j'ai choisie d'utiliser un serveur en mode multicast.
 
-Après cela, créer une dernière machine virtuelle avec comme disque de lancement Clonezilla (comme précédement) mais cette fois sélectionner __Little client__ puis entrer l'addresse IP de votre __Little server__ créer dans l'étape précédente. Suivez les instructions et sauvegarde sera restoré !
+Après cela, créer une dernière machine virtuelle avec comme disque de lancement Clonezilla (comme précédement) mais cette fois sélectionner __Little client__ puis entrer l'addresse IP de votre __Little server__ créer dans l'étape précédente. Suivez les instructions et votre sauvegarde sera restoré !
 
-__Note:__ Lors de la configuration de votre "Little client" n'oubliez pas de créer une machine avec un disque dur supérieur ou égale au disque de votre machine sauvegardé.
+__Note__: Lors de la configuration de votre __Little client__ n'oubliez pas de créer une machine avec un disque dur supérieur ou égale au disque de votre machine sauvegardé
 
 That's done !
 
-Afin de simplifier votre d'administrateur vous trouvez des fichiers de configuration pour votre Salt-master. Ils doivent être déposé dans le dossier "/srv/salt/". Vous pouvez les éxécuters en faisant : `salt '*' state.apply nom_du_fichier`. 
+Afin de simplifier votre d'administration vous trouverez des fichiers de configuration pour votre Salt-master. Ils doivent être déposé dans le dossier "/srv/salt/". Vous pouvez les éxécuters en faisant : `salt '*' state.apply nom_du_fichier`. 
 Vous trouverez aussi des scripts de mise bash pour vous aidez dans vos tâches de maintenance.
 
-__Note:__ Le nom du fichier et sans son extension 'sls'.
+__Note__: Le nom du fichier et sans son extension 'sls'.
 
